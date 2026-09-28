@@ -26,7 +26,7 @@ Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR"**
 | CVE | CVSS | Description |
 |---|---|---|
 | CVE-2026-24849 | 9.9 | Arbitrary file read/write via `disposeDocument()` in `EtherFaxActions` |
-| CVE-2026-33305 | — | Authorization bypass via unsanitised POST to `saveSetup()` |
+| CVE-2026-33305 | 5.4 | Authorization bypass via unsanitised POST to `saveSetup()` |
 
 ---
 
