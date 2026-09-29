@@ -1,4 +1,4 @@
-# AMENDER — Metasploit Exploit Module Synthesis for OpenEMR
+# AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR
 
 Companion repository for the paper:
 **"AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via
