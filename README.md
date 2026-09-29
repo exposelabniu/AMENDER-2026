@@ -1,5 +1,29 @@
 # AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR
 
+## About
+
+This repository contains the implementation and experimental artifacts for
+**AMENDER**, a pipeline
+that automates the synthesis of functional Metasploit exploit modules from
+publicly available vulnerability disclosures.
+
+AMENDER targets two real-world vulnerabilities in OpenEMR, a widely
+deployed open-source electronic health records system: CVE-2026-24849
+(CVSS 9.9, arbitrary file read/write via a fax document disposal endpoint)
+and CVE-2026-33305 (CVSS 5.4, authorization bypass via credential injection
+in the setup controller). Starting from CVE/NVD advisories, patch diffs,
+and source code, the pipeline uses a large language model (LLM) to
+iteratively draft, critique, and refine Ruby exploit modules across four
+structured phases and 13 analyst-guided synthesis steps. Each candidate
+module is validated through three conformance gates: Ruby syntax check,
+msftidy style compliance, and live functional testing against a
+Dockerized OpenEMR instance.
+
+The repository includes the synthesized Metasploit modules, Python
+proof-of-concept scripts, the Docker-based lab environment, and evaluation
+logs from all 13 pipeline iterations. This work is submitted to ICCFN 2026
+and is currently under blind review.
+
 Companion repository for the paper:
 **"AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via
 Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR"**
