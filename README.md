@@ -3,9 +3,8 @@
 ## About
 
 This repository contains the implementation and experimental artifacts for
-**AMENDER**, a pipeline
-that automates the synthesis of functional Metasploit exploit modules from
-publicly available vulnerability disclosures.
+**AMENDER**, a pipeline that automates the synthesis of functional Metasploit
+exploit modules from publicly available vulnerability disclosures.
 
 AMENDER targets two real-world vulnerabilities in OpenEMR, a widely
 deployed open-source electronic health records system: CVE-2026-24849
@@ -24,7 +23,7 @@ proof-of-concept scripts, the Docker-based lab environment, and evaluation
 logs from all 13 pipeline iterations. This work is submitted to ICCFN 2026
 and is currently under blind review.
 
-Companion repository for the paper:
+Companion paper:
 **"AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via
 Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR"**
 (submitted to ICCFN 2026, under blind review)
@@ -34,16 +33,33 @@ Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR"**
 ## Repository Structure
 
     AMENDER-2026/
+    |-- data/
+    |   +-- cve/
+    |       |-- research_log_session2.md
+    |       +-- cve_2026_24849_access_matrix.md
     |-- docker/
     |   +-- docker-compose.yml
-    |-- modules/
-    |   |-- cve_2026_24849_faxsms_file_read.rb
-    |   |-- cve_2026_24849_rcfax_dispose.rb
-    |   +-- cve_2026_33305_save_setup.rb
-    +-- poc/
-        |-- cve_2026_24849_original_poc.py
-        |-- cve_2026_24849_file_read.py
-        +-- cve_2026_33305_save_setup.py
+    |-- logs/
+    |   |-- llm/
+    |   |   |-- cve_2026_24849_faxsms_file_read.rb
+    |   |   |-- cve_2026_24849_rcfax_dispose.rb
+    |   |   |-- cve_2026_33305_save_setup.rb
+    |   |   |-- cve_2026_24849_file_read.py
+    |   |   |-- cve_2026_24849_original_poc.py
+    |   |   +-- cve_2026_33305_save_setup.py
+    |   +-- conformance/
+    |-- results/
+    |   +-- evaluation/
+    |       +-- evaluation_summary.md
+    +-- src/
+        |-- modules/
+        |   |-- cve_2026_24849_faxsms_file_read.rb
+        |   |-- cve_2026_24849_rcfax_dispose.rb
+        |   +-- cve_2026_33305_save_setup.rb
+        +-- poc/
+            |-- cve_2026_24849_original_poc.py
+            |-- cve_2026_24849_file_read.py
+            +-- cve_2026_33305_save_setup.py
 
 ---
 
@@ -77,9 +93,9 @@ Wait ~30 seconds before running any modules.
 
 ## Step 2 - Copy Metasploit Modules
 
-    cp modules/cve_2026_24849_faxsms_file_read.rb ~/.msf4/modules/auxiliary/gather/
-    cp modules/cve_2026_24849_rcfax_dispose.rb     ~/.msf4/modules/auxiliary/gather/
-    cp modules/cve_2026_33305_save_setup.rb        ~/.msf4/modules/auxiliary/gather/
+    cp src/modules/cve_2026_24849_faxsms_file_read.rb ~/.msf4/modules/auxiliary/gather/
+    cp src/modules/cve_2026_24849_rcfax_dispose.rb     ~/.msf4/modules/auxiliary/gather/
+    cp src/modules/cve_2026_33305_save_setup.rb        ~/.msf4/modules/auxiliary/gather/
 
 ---
 
@@ -114,7 +130,7 @@ Expected: vendor credentials overwritten; module confirms write success.
 
 ## Step 5 - Verify with Python PoC (optional)
 
-    python3 poc/cve_2026_24849_file_read.py
+    python3 src/poc/cve_2026_24849_file_read.py
 
 ---
 
