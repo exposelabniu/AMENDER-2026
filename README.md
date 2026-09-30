@@ -12,6 +12,7 @@ Companion paper: "AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via D
 
 ## Repository Structure
 
+\```
 AMENDER-2026/
 |-- data/
 | +-- cve/
@@ -42,7 +43,7 @@ AMENDER-2026/
 | +-- cve_2026_33305_save_setup.py
 |-- openemr_cve_analysis.py <- NVD API script; produces Fig. 1
 +-- README.md <- usage for openemr_cve_analysis.py
-
+\```
 
 ## CVE Enumeration Script (Figure 1)
 
